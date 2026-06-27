@@ -1,0 +1,212 @@
+UNDERLYING,Symbol,lot size,Sector
+ABB INDIA LIMITED                   ,ABB,125,Capital Goods
+ADITYA BIRLA CAPITAL LTD.           ,ABCAPITAL,3100,Financial Services
+ADANI PORT & SEZ LTD                ,ADANIPORTS,475,Services
+AMBER ENTERPRISES (I) LTD           ,AMBER,100,Consumer Durables
+ANGEL ONE LIMITED                   ,ANGELONE,2500,Financial Services
+ASHOK LEYLAND LTD                   ,ASHOKLEY,5000,Capital Goods
+BAJAJ AUTO LIMITED                  ,BAJAJ-AUTO,75,Automobile and Auto Components
+BAJAJ HOLDINGS & INVS LTD           ,BAJAJHLDNG,50,Financial Services
+BAJAJ FINANCE LIMITED               ,BAJFINANCE,750,Financial Services
+ADANI ENERGY SOLUTION LTD           ,ADANIENSOL,675,Power
+ADANI POWER LTD                     ,ADANIPOWER,3550,Power
+BANDHAN BANK LIMITED                ,BANDHANBNK,3600,Financial Services
+BLUE STAR LIMITED                   ,BLUESTARCO,325,Consumer Durables
+BOSCH LIMITED                       ,BOSCHLTD,25,Automobile and Auto Components
+BHARAT PETROLEUM CORP  LT           ,BPCL,1975,Oil Gas & Consumable Fuels
+CENTRAL DEPO SER (I) LTD            ,CDSL,475,Financial Services
+ADANI ENTERPRISES LIMITED           ,ADANIENT,309,Metals & Mining
+ADANI GREEN ENERGY LTD              ,ADANIGREEN,600,Power
+CHOLAMANDALAM IN & FIN CO           ,CHOLAFIN,625,Financial Services
+AMBUJA CEMENTS LTD                  ,AMBUJACEM,1050,Construction Materials
+ALKEM LABORATORIES LTD.             ,ALKEM,125,Healthcare
+ASIAN PAINTS LIMITED                ,ASIANPAINT,250,Consumer Durables
+AU SMALL FINANCE BANK LTD           ,AUBANK,1000,Financial Services
+APOLLO HOSPITALS ENTER. L           ,APOLLOHOSP,125,Healthcare
+ASTRAL LIMITED                      ,ASTRAL,425,Capital Goods
+CROMPT GREA CON ELEC LTD            ,CROMPTON,1800,Consumer Durables
+CUMMINS INDIA LTD                   ,CUMMINSIND,200,Capital Goods
+DIVI S LABORATORIES LTD             ,DIVISLAB,100,Healthcare
+BHARAT DYNAMICS LIMITED             ,BDL,350,Capital Goods
+AUROBINDO PHARMA LTD                ,AUROPHARMA,550,Healthcare
+DR. REDDY S LABORATORIES            ,DRREDDY,625,Healthcare
+BHEL                                ,BHEL,2625,Capital Goods
+AXIS BANK LIMITED                   ,AXISBANK,625,Financial Services
+BAJAJ FINSERV LTD.                  ,BAJAJFINSV,250,Financial Services
+EICHER MOTORS LTD                   ,EICHERMOT,100,Automobile and Auto Components
+ETERNAL LIMITED                     ,ETERNAL,2425,Consumer Services
+CG POWER AND IND SOL LTD            ,CGPOWER,850,Capital Goods
+EXIDE INDUSTRIES LTD                ,EXIDEIND,1800,Automobile and Auto Components
+BHARAT ELECTRONICS LTD              ,BEL,1425,Capital Goods
+CONTAINER CORP OF IND LTD           ,CONCOR,1250,Services
+BIOCON LIMITED.                     ,BIOCON,2500,Healthcare
+GODFREY PHILLIPS INDIA LT           ,GODFRYPHLP,275,Fast Moving Consumer Goods
+COMPUTER AGE MNGT SER LTD           ,CAMS,750,Financial Services
+BRITANNIA INDUSTRIES LTD            ,BRITANNIA,125,Fast Moving Consumer Goods
+COFORGE LIMITED                     ,COFORGE,375,Information Technology
+BSE LIMITED                         ,BSE,375,Financial Services
+COLGATE PALMOLIVE LTD.              ,COLPAL,225,Fast Moving Consumer Goods
+HAVELLS INDIA LIMITED               ,HAVELLS,500,Consumer Durables
+DABUR INDIA LTD                     ,DABUR,1250,Fast Moving Consumer Goods
+CANARA BANK                         ,CANBK,6750,Financial Services
+HDFC LIFE INS CO LTD                ,HDFCLIFE,1100,Financial Services
+APL APOLLO TUBES LTD                ,APLAPOLLO,350,Capital Goods
+ICICI BANK LTD.                     ,ICICIBANK,700,Financial Services
+ICICI PRU LIFE INS CO LTD           ,ICICIPRULI,925,Financial Services
+IDFC FIRST BANK LIMITED             ,IDFCFIRSTB,9275,Financial Services
+INDIAN BANK                         ,INDIANB,1000,Financial Services
+COCHIN SHIPYARD LIMITED             ,COCHINSHIP,400,Capital Goods
+INDUSIND BANK LIMITED               ,INDUSINDBK,700,Financial Services
+DIXON TECHNO (INDIA) LTD            ,DIXON,50,Consumer Durables
+INDIAN RENEWABLE ENERGY             ,IREDA,3450,Financial Services
+DALMIA BHARAT LIMITED               ,DALBHARAT,325,Construction Materials
+GAIL (INDIA) LTD                    ,GAIL,3150,Oil Gas & Consumable Fuels
+DELHIVERY LIMITED                   ,DELHIVERY,2075,Services
+JINDAL STEEL LIMITED                ,JINDALSTEL,625,Metals & Mining
+GE VERNOVA T&D INDIA LTD            ,GVT&D,125,Capital Goods
+DLF LIMITED                         ,DLF,825,Realty
+AVENUE SUPERMARTS LIMITED           ,DMART,150,Consumer Services
+KOTAK MAHINDRA BANK LTD             ,KOTAKBANK,2000,Financial Services
+KPIT TECHNOLOGIES LIMITED           ,KPITTECH,425,Information Technology
+LAURUS LABS LIMITED                 ,LAURUSLABS,850,Healthcare
+LIC HOUSING FINANCE LTD             ,LICHSGFIN,1000,Financial Services
+HINDALCO  INDUSTRIES  LTD           ,HINDALCO,700,Metals & Mining
+LODHA DEVELOPERS LIMITED            ,LODHA,450,Realty
+HYUNDAI MOTOR INDIA LTD             ,HYUNDAI,275,Automobile and Auto Components
+FEDERAL BANK LTD                    ,FEDERALBNK,2500,Financial Services
+LTM LIMITED                         ,LTM,150,Information Technology
+MAHINDRA & MAHINDRA LTD             ,M&M,200,Automobile and Auto Components
+FORCE MOTORS LIMITED                ,FORCEMOT,25,Automobile and Auto Components
+GLENMARK PHARMACEUTICALS            ,GLENMARK,375,Healthcare
+INTERGLOBE AVIATION LTD             ,INDIGO,150,Services
+GMR AIRPORTS LIMITED                ,GMRAIRPORT,6975,Services
+MARUTI SUZUKI INDIA LTD.            ,MARUTI,50,Automobile and Auto Components
+ITC LTD                             ,ITC,1600,Fast Moving Consumer Goods
+GODREJ CONSUMER PRODUCTS            ,GODREJCP,500,Fast Moving Consumer Goods
+GODREJ PROPERTIES LTD               ,GODREJPROP,275,Realty
+GRASIM INDUSTRIES LTD               ,GRASIM,250,Construction Materials
+MULTI COMMODITY EXCHANGE            ,MCX,625,Financial Services
+HINDUSTAN AERONAUTICS LTD           ,HAL,150,Capital Goods
+NATIONAL ALUMINIUM CO LTD           ,NATIONALUM,1875,Metals & Mining
+HCL TECHNOLOGIES LTD                ,HCLTECH,350,Information Technology
+HDFC AMC LIMITED                    ,HDFCAMC,300,Financial Services
+BANK OF INDIA                       ,BANKINDIA,5200,Financial Services
+HDFC BANK LTD                       ,HDFCBANK,550,Financial Services
+HINDUSTAN UNILEVER LTD.             ,HINDUNILVR,300,Fast Moving Consumer Goods
+NTPC LTD                            ,NTPC,1500,Power
+HINDUSTAN ZINC LIMITED              ,HINDZINC,1225,Metals & Mining
+HERO MOTOCORP LIMITED               ,HEROMOTOCO,150,Automobile and Auto Components
+FSN E COMMERCE VENTURES             ,NYKAA,3125,Consumer Services
+POWER FIN CORP LTD.                 ,PFC,1300,Financial Services
+THE PHOENIX MILLS LTD               ,PHOENIXLTD,350,Realty
+PNB HOUSING FIN LTD.                ,PNBHOUSING,650,Financial Services
+ICICI LOMBARD GIC LIMITED           ,ICICIGI,325,Financial Services
+PB FINTECH LIMITED                  ,POLICYBZR,350,Financial Services
+INDIAN ENERGY EXC LTD               ,IEX,3750,Financial Services
+THE INDIAN HOTELS CO. LTD           ,INDHOTEL,1000,Consumer Services
+INFOSYS LIMITED                     ,INFY,400,Information Technology
+INDIAN OIL CORP LTD                 ,IOC,4875,Oil Gas & Consumable Fuels
+RBL BANK LIMITED                    ,RBLBANK,3175,Financial Services
+JSW ENERGY LIMITED                  ,JSWENERGY,1000,Power
+REC LIMITED                         ,RECLTD,1400,Financial Services
+INOX WIND LIMITED                   ,INOXWIND,3575,Capital Goods
+INDIAN RAILWAY FIN CORP L           ,IRFC,4250,Financial Services
+JIO FIN SERVICES LTD                ,JIOFIN,2350,Financial Services
+RAIL VIKAS NIGAM LIMITED            ,RVNL,1525,Construction
+JSW STEEL LIMITED                   ,JSWSTEEL,675,Metals & Mining
+JUBILANT FOODWORKS LTD              ,JUBLFOOD,1250,Consumer Services
+SBI LIFE INSURANCE CO LTD           ,SBILIFE,375,Financial Services
+KALYAN JEWELLERS IND LTD            ,KALYANKJIL,1175,Consumer Durables
+SRF LTD                             ,SRF,200,Chemicals
+KAYNES TECHNOLOGY IND LTD           ,KAYNES,100,Capital Goods
+KEI INDUSTRIES LTD.                 ,KEI,175,Capital Goods
+LIFE INSURA CORP OF INDIA           ,LICI,1400,Financial Services
+SUN PHARMACEUTICAL IND L            ,SUNPHARMA,350,Healthcare
+SWIGGY LIMITED                      ,SWIGGY,1300,Consumer Services
+TATA CONSUMER PRODUCT LTD           ,TATACONSUM,550,Fast Moving Consumer Goods
+KFIN TECHNOLOGIES LIMITED           ,KFINTECH,500,Financial Services
+TATA POWER CO LTD                   ,TATAPOWER,1450,Power
+TECH MAHINDRA LIMITED               ,TECHM,600,Information Technology
+LARSEN & TOUBRO LTD.                ,LT,175,Construction
+TATA MOTORS PASS VEH LTD            ,TMPV,800,Automobile and Auto Components
+VARUN BEVERAGES LIMITED             ,VBL,1125,Fast Moving Consumer Goods
+360 ONE WAM LIMITED                 ,360ONE,500,Financial Services
+LUPIN LIMITED                       ,LUPIN,425,Healthcare
+MANAPPURAM FINANCE LTD              ,MANAPPURAM,3000,Financial Services
+MARICO LIMITED                      ,MARICO,1200,Fast Moving Consumer Goods
+MAZAGON DOCK SHIPBUIL LTD           ,MAZDOCK,200,Capital Goods
+SAMVRDHNA MTHRSN INTL LTD           ,MOTHERSON,6150,Automobile and Auto Components
+MOTILAL OSWAL FIN LTD               ,MOTILALOFS,775,Financial Services
+MPHASIS LIMITED                     ,MPHASIS,275,Information Technology
+NIPPON L I A M LTD                  ,NAM-INDIA,625,Financial Services
+MUTHOOT FINANCE LIMITED             ,MUTHOOTFIN,275,Financial Services
+NBCC (INDIA) LIMITED                ,NBCC,6500,Construction
+NESTLE INDIA LIMITED                ,NESTLEIND,500,Fast Moving Consumer Goods
+NHPC LTD                            ,NHPC,6400,Power
+NMDC LTD.                           ,NMDC,6750,Metals & Mining
+OBEROI REALTY LIMITED               ,OBEROIRLTY,350,Realty
+OIL AND NATURAL GAS CORP.           ,ONGC,2250,Oil Gas & Consumable Fuels
+INFO EDGE (I) LTD                   ,NAUKRI,375,Consumer Services
+PAGE INDUSTRIES LTD                 ,PAGEIND,15,Textiles
+ONE 97 COMMUNICATIONS LTD           ,PAYTM,725,Financial Services
+PERSISTENT SYSTEMS LTD              ,PERSISTENT,100,Information Technology
+PETRONET LNG LIMITED                ,PETRONET,1900,Oil Gas & Consumable Fuels
+PG ELECTROPLAST LTD                 ,PGEL,950,Consumer Durables
+VEDANTA LIMITED                     ,VEDL,1150,Metals & Mining
+PIDILITE INDUSTRIES LTD             ,PIDILITIND,500,Chemicals
+ORACLE FIN SERV SOFT LTD.           ,OFSS,75,Information Technology
+PI INDUSTRIES LTD                   ,PIIND,175,Chemicals
+OIL INDIA LTD                       ,OIL,1400,Oil Gas & Consumable Fuels
+PUNJAB NATIONAL BANK                ,PNB,8000,Financial Services
+POLYCAB INDIA LIMITED               ,POLYCAB,125,Capital Goods
+HITACHI ENERGY INDIA LTD            ,POWERINDIA,25,Capital Goods
+PREMIER ENERGIES LIMITED            ,PREMIERENE,575,Capital Goods
+STEEL AUTHORITY OF INDIA            ,SAIL,4700,Metals & Mining
+STATE BANK OF INDIA                 ,SBIN,750,Financial Services
+SHRIRAM FINANCE LIMITED             ,SHRIRAMFIN,825,Financial Services
+SIEMENS LTD                         ,SIEMENS,175,Capital Goods
+SOLAR INDUSTRIES (I) LTD            ,SOLARINDS,50,Chemicals
+SONA BLW PRECISION FRGS L           ,SONACOMS,1225,Automobile and Auto Components
+RADICO KHAITAN LTD                  ,RADICO,150,Fast Moving Consumer Goods
+BHARTI AIRTEL LIMITED               ,BHARTIARTL,475,Telecommunication
+SAMMAAN CAPITAL LIMITED             ,SAMMAANCAP,4300,Financial Services
+TATA ELXSI LIMITED                  ,TATAELXSI,100,Information Technology
+TATA STEEL LIMITED                  ,TATASTEEL,2750,Metals & Mining
+TUBE INVEST OF INDIA LTD            ,TIINDIA,200,Automobile and Auto Components
+SUZLON ENERGY LIMITED               ,SUZLON,9025,Capital Goods
+TITAN COMPANY LIMITED               ,TITAN,175,Consumer Durables
+TORRENT PHARMACEUTICALS L           ,TORNTPHARM,125,Healthcare
+TRENT LTD                           ,TRENT,150,Consumer Services
+TVS MOTOR COMPANY  LTD              ,TVSMOTOR,175,Automobile and Auto Components
+UNITED SPIRITS LIMITED              ,UNITDSPR,400,Fast Moving Consumer Goods
+UPL LIMITED                         ,UPL,1355,Chemicals
+SHREE CEMENT LIMITED                ,SHREECEM,25,Construction Materials
+CIPLA LTD                           ,CIPLA,375,Healthcare
+BHARAT FORGE LTD                    ,BHARATFORG,500,Automobile and Auto Components
+VISHAL MEGA MART LIMITED            ,VMM,4850,Consumer Services
+VOLTAS LTD                          ,VOLTAS,375,Consumer Durables
+TATA CONSULTANCY SERV LT            ,TCS,175,Information Technology
+WIPRO LTD                           ,WIPRO,3000,Information Technology
+COAL INDIA LTD                      ,COALINDIA,1350,Oil Gas & Consumable Fuels
+FORTIS HEALTHCARE LTD               ,FORTIS,775,Healthcare
+L&T FINANCE LIMITED                 ,LTF,2250,Financial Services
+BANK OF BARODA                      ,BANKBARODA,2925,Financial Services
+MAX HEALTHCARE INS LTD              ,MAXHEALTH,525,Healthcare
+HINDUSTAN PETROLEUM CORP            ,HINDPETRO,2025,Oil Gas & Consumable Fuels
+PATANJALI FOODS LIMITED             ,PATANJALI,900,Fast Moving Consumer Goods
+INDUS TOWERS LIMITED                ,INDUSTOWER,1700,Telecommunication
+POWER GRID CORP. LTD.               ,POWERGRID,1900,Power
+PRESTIGE ESTATE LTD                 ,PRESTIGE,450,Realty
+SBI CARDS & PAY SER LTD             ,SBICARD,800,Financial Services
+SUPREME INDUSTRIES LTD              ,SUPREMEIND,175,Capital Goods
+MANKIND PHARMA LIMITED              ,MANKIND,225,Healthcare
+ULTRATECH CEMENT LIMITED            ,ULTRACEMCO,50,Construction Materials
+MAX FINANCIAL SERV LTD              ,MFSL,400,Financial Services
+WAAREE ENERGIES LIMITED             ,WAAREEENER,175,Capital Goods
+NUVAMA WEALTH MANAGE LTD            ,NUVAMA,500,Financial Services
+RELIANCE INDUSTRIES LTD             ,RELIANCE,500,Oil Gas & Consumable Fuels
+VODAFONE IDEA LIMITED               ,IDEA,71475,Telecommunication
+UNION BANK OF INDIA                 ,UNIONBANK,4425,Financial Services
+UNO MINDA LIMITED                   ,UNOMINDA,550,Automobile and Auto Components
+ZYDUS LIFESCIENCES LTD              ,ZYDUSLIFE,900,Healthcare
+YES BANK LIMITED                    ,YESBANK,31100,Financial Services

@@ -1,0 +1,7 @@
+streamlit
+streamlit-autorefresh
+requests
+pandas
+numpy
+statsmodels
+holidays
