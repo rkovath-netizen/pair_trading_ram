@@ -7,11 +7,12 @@ from datetime import datetime, timedelta, time as datetime_time
 import holidays
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
+import os
 
 # --- INITIAL STRATEGY PARAMETERS ---
-# Fetches the token securely from Streamlit's encrypted cloud vault
 API_TOKEN = st.secrets["UPSTOX_API_TOKEN"]
 SECTOR_CSV = "fno_with_sectors.csv"     
+FORWARD_LOG_CSV = "forward_test_log.csv"  # Permanent file destination for forward testing
 
 LOOKBACK_WINDOW = 80  
 P_VAL_THRESHOLD = 0.10  
@@ -32,6 +33,13 @@ headers = {
     'Accept': 'application/json',
     'Authorization': f'Bearer {API_TOKEN}'
 }
+
+# --- PERSISTENT FILE LOGGER UTILITY ---
+def append_to_forward_log(trade_data):
+    """Safely logs execution states permanently to disk for forward audit validation."""
+    file_exists = os.path.exists(FORWARD_LOG_CSV)
+    df_new = pd.DataFrame([trade_data])
+    df_new.to_csv(FORWARD_LOG_CSV, mode='a', header=not file_exists, index=False)
 
 # --- TRACKING STATES MANAGED PER SPECIFIC BROWSER SESSION ---
 if 'active_trades' not in st.session_state:
@@ -155,6 +163,7 @@ if market_is_open:
                     if pair_key in st.session_state.active_trades:
                         trade = st.session_state.active_trades[pair_key]
                         is_exit = False
+                        exit_reason = ""
                         
                         pnl_current_A = (trade['qty_A'] * (trade['entry_pA'] - pA_now)) if trade['direction'] == "SHORT" else (trade['qty_A'] * (pA_now - trade['entry_pA']))
                         pnl_current_B = (trade['qty_B'] * (pB_now - trade['entry_pB'])) if trade['direction'] == "SHORT" else (trade['qty_B'] * (trade['entry_pB'] - pB_now))
@@ -167,16 +176,36 @@ if market_is_open:
                                 trade['locked_partial_pnl'] = running_pnl * 0.70
                                 trade['qty_A'] = round(trade['qty_A'] * 0.30)
                                 trade['qty_B'] = round(trade['qty_B'] * 0.30)
+                                
+                                # OPTIONAL: Log the partial execution milestone event
+                                append_to_forward_log({
+                                    'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                    'Pair ID': pair_key, 'Event': 'PARTIAL_PROFIT_TAKEN',
+                                    'Z-Score': round(current_z, 2), 'Current PnL': round(running_pnl, 2)
+                                })
                         
                         if (trade['direction'] == "SHORT" and current_z <= 0.0) or (trade['direction'] == "LONG" and current_z >= 0.0):
                             is_exit = True
+                            exit_reason = "Target Hit (Z=0)"
                         elif (trade['direction'] == "SHORT" and current_z >= Z_STOP_LOSS) or (trade['direction'] == "LONG" and current_z <= -Z_STOP_LOSS):
                             is_exit = True
+                            exit_reason = "Hard Stop Loss Triggered"
                         elif trade['bars_in_trade'] >= MAX_BAR_DURATION:
                             is_exit = True
+                            exit_reason = "Max Bar Timeout Reached"
                             
                         if is_exit:
                             final_realized_pnl = trade['locked_partial_pnl'] + running_pnl if trade['has_scaled_partial'] else running_pnl
+                            
+                            trade_closed_packet = {
+                                'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                'Pair ID': pair_key, 'Event': f'EXIT_{exit_reason.replace(" ", "_").upper()}',
+                                'Z-Score': round(current_z, 2), 'Current PnL': round(final_realized_pnl, 2)
+                            }
+                            
+                            # 📝 APPEND EXIT RECORD PERMANENTLY TO CSV FILE ON DISK
+                            append_to_forward_log(trade_closed_packet)
+                            
                             st.session_state.closed_trades_today.append({
                                 'pair': pair_key, 'direction': trade['direction'], 'pnl': final_realized_pnl,
                                 'bars': trade['bars_in_trade'], 'capital': trade['cap_A'] + trade['cap_B']
@@ -195,6 +224,15 @@ if market_is_open:
                                 'bars_in_trade': 0, 'current_z': round(current_z, 2),
                                 'has_scaled_partial': False, 'locked_partial_pnl': 0.0
                             }
+                            
+                            trade_entry_packet = {
+                                'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                                'Pair ID': pair_key, 'Event': f'ENTRY_{direction}',
+                                'Z-Score': round(current_z, 2), 'Current PnL': 0.0
+                            }
+                            
+                            # 📝 APPEND ENTRY RECORD PERMANENTLY TO CSV FILE ON DISK
+                            append_to_forward_log(trade_entry_packet)
 
 # --- RENDER TABLE 1: ACTIVE TRADES ---
 st.subheader("⚡ Active Trades Execution Desk")
@@ -235,3 +273,23 @@ else:
     m3.metric("Realized PnL Today", f"₹{realized_pnl:,.2f}", delta=f"{pnl_percentage:+.2f}%")
     m4.metric("Session Win Rate", f"{live_winrate:.1f}%")
     m5.metric("Avg Duration", f"{avg_live_bars:.1f} Bars")
+
+# --- RENDER TABLE 3: FORWARD TESTING LOG AUDITING VIEW ---
+st.markdown("---")
+st.subheader("📂 Permanent Forward Testing Log Status (`forward_test_log.csv`)")
+if os.path.exists(FORWARD_LOG_CSV):
+    df_log = pd.read_csv(FORWARD_LOG_CSV)
+    st.dataframe(df_log.tail(20), use_container_width=True) # Shows the latest 20 updates recorded
+else:
+    st.info("Awaiting the first operational live trade signal to write the log file.")
+    
+# --- ADD A CONVENIENT DOWNLOAD BUTTON FOR FORWARD TESTING ---
+if os.path.exists(FORWARD_LOG_CSV):
+    with open(FORWARD_LOG_CSV, "rb") as file:
+        st.download_button(
+            label="📥 Download Forward Test Log (CSV)",
+            data=file,
+            file_name=f"forward_test_snapshot_{datetime.now().strftime('%Y%m%d')}.csv",
+            mime="text/csv",
+            use_container_width=True
+        )
