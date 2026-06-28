@@ -8,11 +8,17 @@ import holidays
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 import os
+import subprocess
 
 # --- INITIAL STRATEGY PARAMETERS ---
 API_TOKEN = st.secrets["UPSTOX_API_TOKEN"]
 SECTOR_CSV = "fno_with_sectors.csv"     
-FORWARD_LOG_CSV = "forward_test_log.csv"  # Permanent file destination for forward testing
+FORWARD_LOG_CSV = "forward_test_log.csv"  
+
+# Extract Github Deployment Secrets Vault
+GH_PAT = st.secrets["GITHUB_PAT"]
+GH_USER = st.secrets["GITHUB_USERNAME"]
+GH_REPO = st.secrets["GITHUB_REPO_NAME"]
 
 LOOKBACK_WINDOW = 80  
 P_VAL_THRESHOLD = 0.10  
@@ -20,10 +26,7 @@ Z_ENTRY_LIMIT = 1.5
 Z_STOP_LOSS = 2.5       
 MAX_BAR_DURATION = 80     
 
-# Configure browser layout window parameters
 st.set_page_config(page_title="StatArb Trading Desk", layout="wide")
-
-# Automatically forces the browser page to refresh every 10 seconds 
 st_autorefresh(interval=10000, key="deskrefresh")
 
 st.title("📊 Live Statistical Arbitrage Processing Desk")
@@ -34,12 +37,30 @@ headers = {
     'Authorization': f'Bearer {API_TOKEN}'
 }
 
-# --- PERSISTENT FILE LOGGER UTILITY ---
+# --- THE AUTO-COMMIT GITHUB REPOSITORY PUSHER ---
+def git_push_to_github():
+    """Executes a silent structural terminal push back to the main GitHub repository node."""
+    try:
+        # Authenticate git context via the token link URL string
+        remote_url = f"https://{GH_USER}:{GH_PAT}@github.com/{GH_USER}/{GH_REPO}.git"
+        
+        # Sequentially execute standard shell pipeline terminal actions
+        subprocess.run(["git", "config", "user.name", "Streamlit Live Bot"], check=True)
+        subprocess.run(["git", "config", "user.email", "bot@streamlit.io"], check=True)
+        subprocess.run(["git", "add", FORWARD_LOG_CSV], check=True)
+        subprocess.run(["git", "commit", "-m", f"Automated Forward Log Update: {datetime.now().strftime('%M:%H:%S')}"], check=True)
+        subprocess.run(["git", "push", remote_url, "main"], check=True)
+    except Exception as e:
+        # Prevent any git connectivity errors from interrupting the active loop scanner
+        pass
+
 def append_to_forward_log(trade_data):
-    """Safely logs execution states permanently to disk for forward audit validation."""
     file_exists = os.path.exists(FORWARD_LOG_CSV)
     df_new = pd.DataFrame([trade_data])
     df_new.to_csv(FORWARD_LOG_CSV, mode='a', header=not file_exists, index=False)
+    
+    # Trigger background auto-push to your GitHub folder instantly
+    git_push_to_github()
 
 # --- TRACKING STATES MANAGED PER SPECIFIC BROWSER SESSION ---
 if 'active_trades' not in st.session_state:
@@ -125,7 +146,6 @@ if market_is_open:
         df.sort_index(ascending=True, inplace=True)
         return df['C']
 
-    # Fetch latest session updates
     price_dict = {}
     for sym in sector_df['Symbol'].unique():
         series = fetch_complete_series_15min(sym)
@@ -133,7 +153,6 @@ if market_is_open:
     df_prices = pd.DataFrame(price_dict).dropna()
 
     if not df_prices.empty:
-        # Progress existing active trade bar durations
         for p_key in list(st.session_state.active_trades.keys()):
             st.session_state.active_trades[p_key]['bars_in_trade'] += 1
 
@@ -177,7 +196,6 @@ if market_is_open:
                                 trade['qty_A'] = round(trade['qty_A'] * 0.30)
                                 trade['qty_B'] = round(trade['qty_B'] * 0.30)
                                 
-                                # OPTIONAL: Log the partial execution milestone event
                                 append_to_forward_log({
                                     'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                                     'Pair ID': pair_key, 'Event': 'PARTIAL_PROFIT_TAKEN',
@@ -185,26 +203,20 @@ if market_is_open:
                                 })
                         
                         if (trade['direction'] == "SHORT" and current_z <= 0.0) or (trade['direction'] == "LONG" and current_z >= 0.0):
-                            is_exit = True
-                            exit_reason = "Target Hit (Z=0)"
+                            is_exit, exit_reason = True, "Target Hit (Z=0)"
                         elif (trade['direction'] == "SHORT" and current_z >= Z_STOP_LOSS) or (trade['direction'] == "LONG" and current_z <= -Z_STOP_LOSS):
-                            is_exit = True
-                            exit_reason = "Hard Stop Loss Triggered"
+                            is_exit, exit_reason = True, "Hard Stop Loss Triggered"
                         elif trade['bars_in_trade'] >= MAX_BAR_DURATION:
-                            is_exit = True
-                            exit_reason = "Max Bar Timeout Reached"
+                            is_exit, exit_reason = True, "Max Bar Timeout Reached"
                             
                         if is_exit:
                             final_realized_pnl = trade['locked_partial_pnl'] + running_pnl if trade['has_scaled_partial'] else running_pnl
                             
-                            trade_closed_packet = {
+                            append_to_forward_log({
                                 'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                                 'Pair ID': pair_key, 'Event': f'EXIT_{exit_reason.replace(" ", "_").upper()}',
                                 'Z-Score': round(current_z, 2), 'Current PnL': round(final_realized_pnl, 2)
-                            }
-                            
-                            # 📝 APPEND EXIT RECORD PERMANENTLY TO CSV FILE ON DISK
-                            append_to_forward_log(trade_closed_packet)
+                            })
                             
                             st.session_state.closed_trades_today.append({
                                 'pair': pair_key, 'direction': trade['direction'], 'pnl': final_realized_pnl,
@@ -225,16 +237,13 @@ if market_is_open:
                                 'has_scaled_partial': False, 'locked_partial_pnl': 0.0
                             }
                             
-                            trade_entry_packet = {
+                            append_to_forward_log({
                                 'Timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                                 'Pair ID': pair_key, 'Event': f'ENTRY_{direction}',
                                 'Z-Score': round(current_z, 2), 'Current PnL': 0.0
-                            }
-                            
-                            # 📝 APPEND ENTRY RECORD PERMANENTLY TO CSV FILE ON DISK
-                            append_to_forward_log(trade_entry_packet)
+                            })
 
-# --- RENDER TABLE 1: ACTIVE TRADES ---
+# --- RENDER DASHBOARD INTERFACES ---
 st.subheader("⚡ Active Trades Execution Desk")
 if not st.session_state.active_trades:
     st.info("All scanned assets currently stable within normal statistical parameters.")
@@ -251,8 +260,6 @@ else:
     st.dataframe(pd.DataFrame(active_rows), use_container_width=True)
 
 st.markdown("---")
-
-# --- RENDER TABLE 2: METRICS ACCOUNT SUMMARY ---
 st.subheader("📈 Intraday Account Summary Statistics")
 total_live_trades = len(st.session_state.closed_trades_today) + len(st.session_state.active_trades)
 
@@ -274,22 +281,10 @@ else:
     m4.metric("Session Win Rate", f"{live_winrate:.1f}%")
     m5.metric("Avg Duration", f"{avg_live_bars:.1f} Bars")
 
-# --- RENDER TABLE 3: FORWARD TESTING LOG AUDITING VIEW ---
 st.markdown("---")
-st.subheader("📂 Permanent Forward Testing Log Status (`forward_test_log.csv`)")
+st.subheader("📂 Permanent GitHub Repository Log View (`forward_test_log.csv`)")
 if os.path.exists(FORWARD_LOG_CSV):
     df_log = pd.read_csv(FORWARD_LOG_CSV)
-    st.dataframe(df_log.tail(20), use_container_width=True) # Shows the latest 20 updates recorded
+    st.dataframe(df_log.tail(20), use_container_width=True)
 else:
-    st.info("Awaiting the first operational live trade signal to write the log file.")
-    
-# --- ADD A CONVENIENT DOWNLOAD BUTTON FOR FORWARD TESTING ---
-if os.path.exists(FORWARD_LOG_CSV):
-    with open(FORWARD_LOG_CSV, "rb") as file:
-        st.download_button(
-            label="📥 Download Forward Test Log (CSV)",
-            data=file,
-            file_name=f"forward_test_snapshot_{datetime.now().strftime('%Y%m%d')}.csv",
-            mime="text/csv",
-            use_container_width=True
-        )
+    st.info("Awaiting the first operational live trade signal to initialize the GitHub log.")
