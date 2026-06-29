@@ -1,3 +1,14 @@
+import os
+import time
+
+# ==============================================================================
+# CRITICAL TIMEZONE CORRECTION HOOK (MUST BE RUN BEFORE ANY OTHER IMPORTS)
+# ==============================================================================
+# Forces the entire online Streamlit Cloud Linux container to run on Indian Standard Time
+os.environ['TZ'] = 'Asia/Kolkata'
+if hasattr(time, 'tzset'):
+    time.tzset()
+
 import requests
 import pandas as pd
 import numpy as np
@@ -7,7 +18,6 @@ from datetime import datetime, timedelta, time as datetime_time
 import holidays
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
-import os
 import subprocess
 
 # --- INITIAL STRATEGY PARAMETERS ---
@@ -39,7 +49,7 @@ headers = {
 
 # --- THE AUTO-COMMIT GITHUB REPOSITORY PUSHER ---
 def git_push_to_github():
-    """Executes a silent structural terminal push back to the main GitHub repository node."""
+    """Executes a structural terminal push back to the main GitHub repository node using IST tracking."""
     try:
         # Authenticate git context via the token link URL string
         remote_url = f"https://{GH_USER}:{GH_PAT}@github.com/{GH_USER}/{GH_REPO}.git"
@@ -48,10 +58,13 @@ def git_push_to_github():
         subprocess.run(["git", "config", "user.name", "Streamlit Live Bot"], check=True)
         subprocess.run(["git", "config", "user.email", "bot@streamlit.io"], check=True)
         subprocess.run(["git", "add", FORWARD_LOG_CSV], check=True)
-        subprocess.run(["git", "commit", "-m", f"Automated Forward Log Update: {datetime.now().strftime('%M:%H:%S')}"], check=True)
+        
+        # Commit message will now correctly stamp in your local execution clock time
+        commit_msg = f"Automated Forward Log Update: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')} IST"
+        subprocess.run(["git", "commit", "-m", commit_msg], check=True)
         subprocess.run(["git", "push", remote_url, "main"], check=True)
     except Exception as e:
-        # Prevent any git connectivity errors from interrupting the active loop scanner
+        # Prevent any git sync disruptions from hanging your active live scanning cycle
         pass
 
 def append_to_forward_log(trade_data):
@@ -100,6 +113,7 @@ market_is_open, log_message, next_open_dt = check_market_status()
 # Render System Status Cards
 col_s1, col_s2, col_s3 = st.columns(3)
 col_s1.metric("System Operational Node", "ACTIVE" if market_is_open else "SUSPENDED")
+# This clock will now tick beautifully in true Indian Standard Time online
 col_s2.metric("Pipeline Clock", datetime.now().strftime("%H:%M:%S"))
 col_s3.metric("Operational Context", log_message if not market_is_open else "15m Intraday Continuous Sync")
 
